@@ -30,6 +30,8 @@
 # include "ppc/sha1.h"
 #elif defined(OPENSSL_SHA1)
 # include <openssl/sha.h>
+#elif defined(COMMONCRYPTO_SHA1)
+# include "cc-sha1/sha1.h"
 #else
 # include "block-sha1/sha1.h"
 #endif

@@ -81,13 +81,16 @@ def configure(conf):
         conf.env.DEFINES += ['GIT2_HIREDIS_BACKEND']
 
 
-    if conf.options.sha1 not in ['openssl', 'ppc', 'builtin']:
+    if conf.options.sha1 not in ['openssl', 'ppc', 'common-crypto', 'builtin']:
         conf.fatal('Invalid SHA1 option')
 
     # check for libcrypto (openssl) if we are using its SHA1 functions
     if conf.options.sha1 == 'openssl':
         conf.check_cfg(package='libcrypto', args=['--cflags', '--libs'], uselib_store='crypto')
         conf.env.DEFINES += ['OPENSSL_SHA1']
+
+    elif conf.options.sha1 == 'common-crypto':
+        conf.env.DEFINES += ['COMMONCRYPTO_SHA1']
 
     elif conf.options.sha1 == 'ppc':
         conf.env.DEFINES += ['PPC_SHA1']
